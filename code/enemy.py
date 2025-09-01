@@ -1,27 +1,23 @@
+# code/enemy.py
 
 import pygame
 from .entity import Entity
 
 
-
-# Representa os meteoros (inimigos)que caem.
+# Representa os meteoros que o jogador deve desviar ou destruir.
 class Enemy(Entity):
-
-    def __init__(self, x, y, asset_path, image_name):
+    def __init__(self, x, y, asset_path, image_name, speed, size):
+        # Inicia a classe Entity com os dados do inimigo.
         super().__init__(x, y, asset_path, image_name)
 
-
         # Ajusta o tamanho da imagem do inimigo.
-        self.image = pygame.transform.scale(self.image, (45, 45))
+        self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect(center=(x, y))
 
-        self.speed = 3
+        # Define a velocidade.
+        self.speed = speed
 
-
-    # Move o inimigo para baixo e o remove se sair da tela.
+    # Move o inimigo para baixo.
     def update(self):
         self.move(0, self.speed)
-        if self.rect.top > 600:
-            self.kill()
-
 

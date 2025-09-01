@@ -1,29 +1,33 @@
+# code/game.py
 
 import pygame
 import sys
 import random
 import os
 
-from . import config
+# Importa as configurações e as classes do jogo
+from . import config # ADICIONE/CORRIJA ESTA LINHA
 from .player import Player
 from .enemy import Enemy
 from .menu import Menu
 from .game_over import GameOver
 
 
-# Classe principal que gerencia os estados do jogo e o loop principal.
+# Classe principal que gerencia o jogo e seus estados.
 class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
 
+        # Usa as configurações do arquivo config.py para a tela
         self.tela = pygame.display.set_mode((config.LARGURA_TELA, config.ALTURA_TELA))
         pygame.display.set_caption(config.TITULO)
         self.clock = pygame.time.Clock()
 
+        # Define o caminho base para os assets
         self.asset_path = "assets"
 
-        # Carrega o fundo do jogo
+        # Carrega o fundo
         background_image_path = os.path.join(self.asset_path, "image", "fundo_nebulosa.png")
         self.background = pygame.image.load(background_image_path).convert()
         self.background = pygame.transform.scale(self.background, (config.LARGURA_TELA, config.ALTURA_TELA))
@@ -40,8 +44,9 @@ class Game:
         self.menu = Menu(self.tela)
         self.game_over = GameOver(self.tela)
 
+    # Contém a lógica principal do nível
     def play_level(self):
-        # Reseta as variáveis para um novo jogo
+        # Configuração para um novo jogo
         player_image = "principal.png"
         player = Player(config.LARGURA_TELA / 2, config.ALTURA_TELA - 60, self.asset_path, player_image)
 
@@ -58,8 +63,7 @@ class Game:
 
         pygame.mixer.music.play(-1)
 
-
-        # Loop principal do nível
+        # Loop do Jogo
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -67,24 +71,25 @@ class Game:
                     sys.exit()
                 if event.type == enemy_timer:
                     enemy_image = "meteorGrey_med1.png"
-                    new_enemy = Enemy(random.randint(40, config.LARGURA_TELA - 40), -50, self.asset_path, enemy_image)
+                    # CORRIGIDO: Adiciona os argumentos 'speed' e 'size'
+                    new_enemy = Enemy(random.randint(40, config.LARGURA_TELA - 40), -50, self.asset_path, enemy_image,
+                                      speed=config.VELOCIDADE_INIMIGO, size=(45, 45))
                     enemies.add(new_enemy)
                     all_sprites.add(new_enemy)
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_LCTRL:
                     player.shoot()
                     self.som_tiro.play()
 
-            # Lógica de atualização dos objetos
+            # Atualizações
             player.update(config.LARGURA_TELA)
             enemies.update()
             player.projectiles.update()
-
 
             self.bg_y += self.bg_velocidade
             if self.bg_y >= config.ALTURA_TELA:
                 self.bg_y = 0
 
-            # Lógica de colisões
+            # Colisões
             hits = pygame.sprite.groupcollide(enemies, player.projectiles, True, True)
             if hits:
                 pontuacao += len(hits) * 10
@@ -95,13 +100,22 @@ class Game:
                     pygame.mixer.music.stop()
                     return pontuacao
 
+            # Verifica se inimigo passou
+            for inimigo in enemies:
+                if inimigo.rect.top > config.ALTURA_TELA:
+                    inimigo.kill()
+                    vidas -= 1
+                    if vidas <= 0:
+                        pygame.mixer.music.stop()
+                        return pontuacao
 
-            # Lógica de desenho
+            # Desenho na tela
             self.tela.blit(self.background, (0, self.bg_y))
             self.tela.blit(self.background, (0, self.bg_y - config.ALTURA_TELA))
             all_sprites.draw(self.tela)
             player.projectiles.draw(self.tela)
 
+            # UI (Vidas e Pontuação)
             texto_vidas = fonte.render(f"Vidas: {vidas}", True, config.BRANCO)
             self.tela.blit(texto_vidas, (config.LARGURA_TELA - texto_vidas.get_width() - 10, 10))
 
@@ -111,10 +125,9 @@ class Game:
             pygame.display.flip()
             self.clock.tick(config.FPS)
 
-    # Gerencia os estados do jogo (menu, jogando, game over).
+    # Loop principal que gerencia os estados (telas).
     def run(self):
         while True:
             self.menu.run()
             final_score = self.play_level()
             self.game_over.run(final_score)
-

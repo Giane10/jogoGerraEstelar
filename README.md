@@ -1,9 +1,10 @@
 # Guerra Estelar
 
+![Gameplay do Guerra Estelar](./docs/gameplay.png)
+
 ## Descrição do Projeto
 
-Este é um jogo 2D de tiro espacial (shoot 'em up) desenvolvido como parte da Atividade Prática da disciplina de **Linguagem de Programação Aplicada** da UNINTER. O jogador controla uma nave que deve desviar e destruir meteoros que caem da parte superior da tela.
-
+Este é um jogo 2D de tiro espacial (shoot 'em up) desenvolvido como parte da Atividade Prática da disciplina de **Linguagem de Programação Aplicada**. O jogador controla uma nave que deve proteger a Terra, destruindo meteoros que se aproximam. O jogador perde vidas se for atingido ou se deixar um meteoro passar.
 ---
 
 ### Funcionalidades
@@ -11,7 +12,7 @@ Este é um jogo 2D de tiro espacial (shoot 'em up) desenvolvido como parte da At
 * **Menu Principal:** Tela inicial para começar o jogo.
 * **Gameplay de Tiro:** A nave pode se mover horizontalmente e atirar projéteis.
 * **Inimigos:** Meteoros aparecem periodicamente no topo da tela.
-* **Sistema de Vidas e Pontuação:** O jogador tem 3 vidas e ganha pontos ao destruir inimigos.
+* **Sistema de Vidas e Pontuação:** O jogador tem 3 vidas e ganha pontos ao destruir inimigos. Perde uma vida ao ser atingido ou ao deixar um meteoro passar pela linha de defesa.
 * **Tela de Game Over:** Ao perder todas as vidas, uma tela de fim de jogo é exibida com a pontuação final e a opção de reiniciar.
 * **Áudio:** O jogo conta com música de fundo e efeitos sonoros para tiros.
 * **Estrutura Organizada:** O código foi desenvolvido utilizando o paradigma de Programação Orientada a Objetos, com as classes separadas em módulos dentro de um pacote.
