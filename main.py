@@ -1,3 +1,4 @@
+# main.py
 
 # Importa a classe principal do jogo, que está no arquivo game.py
 from code.game import Game

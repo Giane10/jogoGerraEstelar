@@ -2,7 +2,7 @@
 
 ![Gameplay do Guerra Estelar](./docs/gameplay.png)
 
-## Descrição do Projeto
+### Descrição do Projeto
 
 Este é um jogo 2D de tiro espacial (shoot 'em up) desenvolvido como parte da Atividade Prática da disciplina de **Linguagem de Programação Aplicada**. O jogador controla uma nave que deve proteger a Terra, destruindo meteoros que se aproximam. O jogador perde vidas se for atingido ou se deixar um meteoro passar.
 ---

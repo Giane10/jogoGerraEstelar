@@ -25,11 +25,14 @@ class GameOver:
 
 
         # Posição do texto da pontuação ajustada para ficar ACIMA do centro
-        texto_pontuacao = self.fonte_instrucao.render(f"Pontuacao final: {pontuacao}", True, self.cor_texto)
-        rect_pontuacao = texto_pontuacao.get_rect(center=(self.tela.get_width() / 2, self.tela.get_height() / 2 - 50))
+        texto_pontuacao = self.fonte_instrucao.render(f"Pontuacao final: {pontuacao}", True,
+                                                      self.cor_texto)
+        rect_pontuacao = texto_pontuacao.get_rect(center=(self.tela.get_width() / 2,
+                                                          self.tela.get_height() / 2 - 50))
 
         # Posição da instrução para reiniciar ajustada para ficar no centro
-        texto_instrucao = self.fonte_instrucao.render("Pressione ENTER para reiniciar", True, self.cor_texto)
+        texto_instrucao = self.fonte_instrucao.render("Pressione ENTER para reiniciar", True,
+                                                      self.cor_texto)
         rect_instrucao = texto_instrucao.get_rect(center=(self.tela.get_width() / 2, self.tela.get_height() / 2))
 
         self.tela.blit(texto_pontuacao, rect_pontuacao)
@@ -55,7 +58,7 @@ class GameOver:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                if event.type == pygame.KEYDOWN and (event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER):
                     return  # Sai do loop para voltar ao menu
 
             self.desenhar(pontuacao)

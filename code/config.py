@@ -1,3 +1,4 @@
+# code/config.py
 
 # Arquivo para guardar todas as constantes e configurações do jogo,
 # facilitando futuras alterações.
