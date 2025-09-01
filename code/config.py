@@ -3,8 +3,8 @@
 # facilitando futuras alterações.
 
 # Configurações da Janela
-LARGURA_TELA = 600
-ALTURA_TELA = 400
+LARGURA_TELA = 500
+ALTURA_TELA = 600
 FPS = 60
 TITULO = "Guerra Estelar"
 
@@ -15,7 +15,7 @@ BRANCO = (255, 255, 255)
 AZUL_ESCURO = (0, 0, 15)
 
 # Configurações do Jogador
-VELOCIDADE_JOGADOR = 6
+VELOCIDADE_JOGADOR = 8
 
 
 
